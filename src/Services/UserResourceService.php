@@ -15,6 +15,12 @@ class UserResourceService extends AbstractService
 {
     //
 
+    /**
+     * Constructor
+     *
+     * @param UserResourceRepository $userResourceRepository
+     * @param UserResourceRestLibrary $userResourceRestLibrary
+     */
     public function __construct(
         protected UserResourceRepository $userResourceRepository,
         protected UserResourceRestLibrary $userResourceRestLibrary

@@ -5,11 +5,12 @@ namespace TheBachtiarz\UserResource\Models;
 use Illuminate\Support\Facades\Crypt;
 use TheBachtiarz\Base\App\Models\AbstractModel;
 use TheBachtiarz\UserResource\Interfaces\Model\UserResourceInterface;
+use TheBachtiarz\UserResource\Traits\Model\UserResourceMapTrait;
 use TheBachtiarz\UserResource\Traits\Model\UserResourceScopeTrait;
 
 class UserResource extends AbstractModel implements UserResourceInterface
 {
-    use UserResourceScopeTrait;
+    use UserResourceScopeTrait, UserResourceMapTrait;
 
     /**
      * {@inheritDoc}

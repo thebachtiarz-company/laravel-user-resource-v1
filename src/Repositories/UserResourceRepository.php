@@ -2,6 +2,7 @@
 
 namespace TheBachtiarz\UserResource\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use TheBachtiarz\Base\App\Repositories\AbstractRepository;
@@ -56,6 +57,19 @@ class UserResourceRepository extends AbstractRepository
         if (!$resource) throw new ModelNotFoundException("Resource with biodata '$biodataCode' not found");
 
         return $resource;
+    }
+
+    /**
+     * Get list user resource
+     *
+     * @return Collection<UserResourceInterface>
+     */
+    public function getListResource(): Collection
+    {
+        /** @var \Illuminate\Database\Eloquent\Builder $resources */
+        $resources = UserResource::query();
+
+        return $resources->get();
     }
 
     /**
