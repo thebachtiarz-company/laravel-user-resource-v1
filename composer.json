@@ -2,11 +2,11 @@
     "name": "thebachtiarz-company/laravel-user-resource-v1",
     "description": "A Library used for handle User Resource for Laravel Project v1",
     "type": "library",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "require": {
         "php": "^8.1",
         "laravel/framework": "^10.1",
-        "thebachtiarz-company/laravel-base-v1": "^1.0"
+        "thebachtiarz-company/laravel-base-v1": "^1.0.11"
     },
     "license": "MIT",
     "autoload": {

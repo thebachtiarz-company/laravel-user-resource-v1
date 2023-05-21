@@ -12,19 +12,8 @@ if (!function_exists('tbuserresconfig')) {
      */
     function tbuserresconfig(?string $keyName = null, ?bool $useOrigin = true): mixed
     {
-        try {
-            $configName = UserResourceConfigInterface::CONFIG_NAME;
+        $configName = UserResourceConfigInterface::CONFIG_NAME;
 
-            if ($useOrigin) {
-                return iconv_strlen($keyName)
-                    ? config("{$configName}.{$keyName}")
-                    : config("{$configName}");
-            } else {
-                return tbconfigvalue("{$configName}.{$keyName}");
-            }
-        } catch (\Throwable $th) {
-        }
-
-        return null;
+        return tbconfig($configName, $keyName, $useOrigin);
     }
 }
