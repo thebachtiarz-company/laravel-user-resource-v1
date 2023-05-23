@@ -1,31 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheBachtiarz\UserResource\Providers;
+
+use function app;
+use function assert;
+use function config;
 
 class AppService
 {
-    //
-
     /**
      * Constructor
      */
     public function __construct()
     {
-        //
     }
 
     /**
      * Available command modules
-     *
-     * @var array
      */
     public const COMMANDS = [];
 
     // ? Public Methods
+
     /**
      * Register config
-     *
-     * @return void
      */
     public function registerConfig(): void
     {
@@ -33,20 +33,18 @@ class AppService
     }
 
     // ? Private Methods
+
     /**
      * Set configs
-     *
-     * @return void
      */
     private function setConfigs(): void
     {
-        $container = \Illuminate\Container\Container::getInstance();
+        $dataService = app(DataService::class);
+        assert($dataService instanceof DataService);
 
-        /** @var DataService $_dataService */
-        $_dataService = $container->make(DataService::class);
-
-        foreach ($_dataService->registerConfig() as $key => $register)
+        foreach ($dataService->registerConfig() as $key => $register) {
             config($register);
+        }
     }
 
     // ? Setter Modules

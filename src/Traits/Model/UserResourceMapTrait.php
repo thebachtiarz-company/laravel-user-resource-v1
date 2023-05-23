@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheBachtiarz\UserResource\Traits\Model;
 
 use TheBachtiarz\Base\App\Helpers\CarbonHelper;
 use TheBachtiarz\UserResource\Interfaces\Model\UserResourceInterface;
+
+use function json_decode;
 
 /**
  * User Resource Map Trait
  */
 trait UserResourceMapTrait
 {
-    //
-
     /**
      * Get resource simple list
      *
@@ -25,7 +27,7 @@ trait UserResourceMapTrait
             'biodata' => $this->getBiodataCode(),
             'attributes' => json_decode($this->getDataCache(), true),
             'created' => CarbonHelper::anyConvDateToTimestamp($this->getCreatedAt()),
-            'updated' => CarbonHelper::anyConvDateToTimestamp($this->getUpdatedAt())
+            'updated' => CarbonHelper::anyConvDateToTimestamp($this->getUpdatedAt()),
         ];
     }
 }

@@ -1,45 +1,50 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheBachtiarz\UserResource;
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 use TheBachtiarz\UserResource\Interfaces\Config\UserResourceConfigInterface;
 use TheBachtiarz\UserResource\Providers\AppService;
 
+use function app;
+use function assert;
+use function config_path;
+use function database_path;
+
 class ServiceProvider extends LaravelServiceProvider
 {
-    //
-
     /**
      * {@inheritDoc}
      */
     public function register()
     {
-        $container = \Illuminate\Container\Container::getInstance();
+        $appService = app(AppService::class);
+        assert($appService instanceof AppService);
 
-        /** @var AppService $_appService */
-        $_appService = $container->make(AppService::class);
+        $appService->registerConfig();
 
-        $_appService->registerConfig();
-
-        if ($this->app->runningInConsole()) {
-            $this->commands(AppService::COMMANDS);
+        if (! $this->app->runningInConsole()) {
+            return;
         }
+
+        $this->commands(AppService::COMMANDS);
     }
 
     /**
      * Boot
-     *
-     * @return void
      */
     public function boot(): void
     {
-        if (app()->runningInConsole()) {
-            $_configName = UserResourceConfigInterface::CONFIG_NAME;
-            $_publishName = 'thebachtiarz-userresource';
-
-            $this->publishes([__DIR__ . "/../config/$_configName.php" => config_path("$_configName.php")], "$_publishName-config");
-            $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], "$_publishName-migrations");
+        if (! app()->runningInConsole()) {
+            return;
         }
+
+        $configName  = UserResourceConfigInterface::CONFIG_NAME;
+        $publishName = 'thebachtiarz-userresource';
+
+        $this->publishes([__DIR__ . "/../config/$configName.php" => config_path("$configName.php")], "$publishName-config");
+        $this->publishes([__DIR__ . '/../database/migrations' => database_path('migrations')], "$publishName-migrations");
     }
 }

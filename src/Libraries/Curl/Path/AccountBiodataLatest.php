@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheBachtiarz\UserResource\Libraries\Curl\Path;
 
 use TheBachtiarz\Base\App\Libraries\Curl\CurlInterface;
@@ -9,13 +11,10 @@ use TheBachtiarz\UserResource\Libraries\Curl\AbstractCurl;
 
 class AccountBiodataLatest extends AbstractCurl implements CurlInterface
 {
-    //
-
     /**
      * Account detail
      *
      * @param array $data
-     * @return CurlResponseInterface
      */
     public function execute(array $data = []): CurlResponseInterface
     {

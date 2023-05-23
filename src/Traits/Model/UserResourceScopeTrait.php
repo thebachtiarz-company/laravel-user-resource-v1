@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TheBachtiarz\UserResource\Traits\Model;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -11,14 +13,8 @@ use TheBachtiarz\UserResource\Interfaces\Model\UserResourceInterface;
  */
 trait UserResourceScopeTrait
 {
-    //
-
     /**
      * Get by account code
-     *
-     * @param Builder $builder
-     * @param string $accountCode
-     * @return Builder
      */
     public function scopeGetByAccountCode(Builder $builder, string $accountCode): Builder
     {
@@ -29,10 +25,6 @@ trait UserResourceScopeTrait
 
     /**
      * Get by biodata code
-     *
-     * @param Builder $builder
-     * @param string $biodataCode
-     * @return Builder
      */
     public function scopeGetByBiodataCode(Builder $builder, string $biodataCode): Builder
     {
