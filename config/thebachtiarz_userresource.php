@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -9,7 +11,7 @@ return [
     | API URL Production site.
     |
     */
-    'api_url_production' => "https://accounts-v2.thebachtiarz.com",
+    'api_url_production' => 'https://accounts-v2.thebachtiarz.com',
 
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ return [
     | API URL Sandbox site.
     |
     */
-    'api_url_sandbox' => "http://appaccounts.test",
+    'api_url_sandbox' => 'http://appaccounts.test',
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +31,7 @@ return [
     | Set url prefix.
     |
     */
-    'api_url_prefix' => "rest/v1",
+    'api_url_prefix' => 'rest/v1',
 
     /*
     |--------------------------------------------------------------------------

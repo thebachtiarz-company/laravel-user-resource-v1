@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace TheBachtiarz\UserResource\Interfaces\Model;
+namespace TheBachtiarz\UserResource\Interfaces\Models;
 
-use TheBachtiarz\Base\App\Interfaces\Model\AbstractModelInterface;
+use TheBachtiarz\Base\App\Interfaces\Models\AbstractModelInterface;
 
 interface UserResourceInterface extends AbstractModelInterface
 {

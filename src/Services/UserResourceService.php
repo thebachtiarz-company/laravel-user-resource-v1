@@ -9,7 +9,7 @@ use TheBachtiarz\Base\App\Helpers\CarbonHelper;
 use TheBachtiarz\Base\App\Libraries\Curl\Data\CurlResponseInterface;
 use TheBachtiarz\Base\App\Services\AbstractService;
 use TheBachtiarz\UserResource\Interfaces\Config\CurlRestInterface;
-use TheBachtiarz\UserResource\Interfaces\Model\UserResourceInterface;
+use TheBachtiarz\UserResource\Interfaces\Models\UserResourceInterface;
 use TheBachtiarz\UserResource\Libraries\Curl\UserResourceRestLibrary;
 use TheBachtiarz\UserResource\Models\UserResource;
 use TheBachtiarz\UserResource\Repositories\UserResourceRepository;

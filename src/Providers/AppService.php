@@ -6,6 +6,7 @@ namespace TheBachtiarz\UserResource\Providers;
 
 use function app;
 use function assert;
+use function collect;
 use function config;
 
 class AppService
@@ -43,7 +44,7 @@ class AppService
         assert($dataService instanceof DataService);
 
         foreach ($dataService->registerConfig() as $key => $register) {
-            config($register);
+            config(collect($register)->unique()->toArray());
         }
     }
 

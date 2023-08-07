@@ -4,33 +4,30 @@ declare(strict_types=1);
 
 namespace TheBachtiarz\UserResource\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use TheBachtiarz\Base\App\Libraries\Search\Output\SearchResultOutputInterface;
+use TheBachtiarz\Base\App\Libraries\Search\Params\QuerySearchInputInterface;
 use TheBachtiarz\Base\App\Repositories\AbstractRepository;
-use TheBachtiarz\UserResource\Interfaces\Model\UserResourceInterface;
+use TheBachtiarz\UserResource\Interfaces\Models\UserResourceInterface;
 use TheBachtiarz\UserResource\Models\UserResource;
 
+use function app;
 use function assert;
 
 class UserResourceRepository extends AbstractRepository
 {
-    // ? Public Methods
-
     /**
-     * Get by id
+     * Constructor
      */
-    public function getById(int $id): UserResourceInterface
+    public function __construct()
     {
-        $resource = UserResource::find($id);
+        $this->modelEntity = app(UserResource::class);
 
-        if (! $resource) {
-            throw new ModelNotFoundException("Resource with id '$id' not found");
-        }
-
-        return $resource;
+        parent::__construct();
     }
+
+    // ? Public Methods
 
     /**
      * Get by account code
@@ -60,17 +57,13 @@ class UserResourceRepository extends AbstractRepository
         return $resource;
     }
 
-    /**
-     * Get list user resource
-     *
-     * @return Collection<UserResourceInterface>
-     */
-    public function getListResource(): Collection
+    public function search(QuerySearchInputInterface $querySearchInputInterface): SearchResultOutputInterface
     {
-        $resources = UserResource::query();
-        assert($resources instanceof Builder);
+        if (! $querySearchInputInterface->getMapMethod()) {
+            $querySearchInputInterface->setMapMethod('simpleMap');
+        }
 
-        return $resources->get();
+        return parent::search($querySearchInputInterface);
     }
 
     /**
@@ -105,17 +98,6 @@ class UserResourceRepository extends AbstractRepository
     }
 
     /**
-     * Delete by id
-     */
-    public function deleteById(int $id): bool
-    {
-        $resource = $this->getById($id);
-        assert($resource instanceof Model);
-
-        return $resource->delete();
-    }
-
-    /**
      * Delete by acount code
      */
     public function deleteByAccountCode(string $accountCode): bool
@@ -127,6 +109,16 @@ class UserResourceRepository extends AbstractRepository
     }
 
     // ? Protected Methods
+
+    protected function getByIdErrorMessage(): string|null
+    {
+        return "Resource with id '%s' not found!.";
+    }
+
+    protected function createOrUpdateErrorMessage(): string|null
+    {
+        return 'Failed to %s resource';
+    }
 
     // ? Private Methods
 

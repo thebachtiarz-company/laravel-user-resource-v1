@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 namespace TheBachtiarz\UserResource\Services;
 
+use TheBachtiarz\Base\App\Libraries\Paginator\Params\PaginatorParam;
+use TheBachtiarz\Base\App\Libraries\Search\Output\SearchResultOutputInterface;
+use TheBachtiarz\Base\App\Libraries\Search\Params\QuerySearchInput;
+use TheBachtiarz\Base\App\Libraries\Search\Params\QuerySearchInputInterface;
 use TheBachtiarz\Base\App\Services\AbstractService;
+use TheBachtiarz\UserResource\Models\UserResource;
 use TheBachtiarz\UserResource\Repositories\UserResourceRepository;
 use Throwable;
 
-use function array_map;
+use function app;
+use function assert;
 
 class ResourceManagerService extends AbstractService
 {
@@ -31,16 +37,22 @@ class ResourceManagerService extends AbstractService
     public function getListResource(): array
     {
         try {
-            $resources = $this->userResourceRepository->getListResource();
+            $input = app(QuerySearchInput::class);
+            assert($input instanceof QuerySearchInputInterface);
 
-            $result = [
-                ...array_map(
-                    static fn ($resource): array => $resource->simpleListMap(),
-                    $resources->all(),
-                ),
-            ];
+            $input->setModel(app(UserResource::class));
+            $input->setPerPage(PaginatorParam::getPerPage());
+            $input->setCurrentPage(PaginatorParam::getCurrentPage());
 
-            $this->setResponseData(message: 'List resource', data: $result);
+            $search = $this->userResourceRepository->search($input);
+            assert($search instanceof SearchResultOutputInterface);
+
+            $resultPaginate = $search->getPaginate();
+            $resultPaginate->setDataSort(PaginatorParam::getResultSortOptions(asMultiple: true));
+
+            $result = $resultPaginate->toArray();
+
+            $this->setResponseData(message: 'List resource', data: $result, httpCode: 200);
 
             return $this->serviceResult(status: true, message: 'List resource', data: $result);
         } catch (Throwable $th) {
