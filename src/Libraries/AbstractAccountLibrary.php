@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace TheBachtiarz\UserResource\Libraries\Curl;
+namespace TheBachtiarz\UserResource\Libraries;
 
-use TheBachtiarz\Base\App\Libraries\Curl\AbstractCurl as BaseAbstractCurl;
+use TheBachtiarz\Base\App\Libraries\Curl\AbstractCurl;
 
 use function sprintf;
 use function tbuserresconfig;
 
-abstract class AbstractCurl extends BaseAbstractCurl
+abstract class AbstractAccountLibrary extends AbstractCurl
 {
     protected function urlDomainResolver(): string
     {

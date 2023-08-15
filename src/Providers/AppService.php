@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TheBachtiarz\UserResource\Providers;
 
+use TheBachtiarz\UserResource\Console\Commands\AccountSynchronizeCommand;
+
 use function app;
 use function assert;
 use function collect;
@@ -21,7 +23,7 @@ class AppService
     /**
      * Available command modules
      */
-    public const COMMANDS = [];
+    public const COMMANDS = [AccountSynchronizeCommand::class];
 
     // ? Public Methods
 

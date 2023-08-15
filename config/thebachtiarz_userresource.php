@@ -21,7 +21,7 @@ return [
     | API URL Sandbox site.
     |
     */
-    'api_url_sandbox' => 'http://appaccounts.test',
+    'api_url_sandbox' => 'https://f48685e8-f9d9-40db-a203-18e32fb30128.mock.pstmn.io',
 
     /*
     |--------------------------------------------------------------------------

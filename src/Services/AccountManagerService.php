@@ -16,7 +16,7 @@ use Throwable;
 use function app;
 use function assert;
 
-class ResourceManagerService extends AbstractService
+class AccountManagerService extends AbstractService
 {
     /**
      * Constructor
@@ -24,7 +24,6 @@ class ResourceManagerService extends AbstractService
     public function __construct(
         protected UserResourceRepository $userResourceRepository,
     ) {
-        $this->userResourceRepository = $userResourceRepository;
     }
 
     // ? Public Methods
