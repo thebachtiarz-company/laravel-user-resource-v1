@@ -20,6 +20,11 @@ use function mb_strlen;
 class AccountService extends AbstractService
 {
     /**
+     * Original account code
+     */
+    private string|null $accountOrigin = null;
+
+    /**
      * Constructor
      */
     public function __construct(
@@ -113,6 +118,8 @@ class AccountService extends AbstractService
         );
 
         if ($process->getStatus() === 'success') {
+            $this->accountOrigin = $accountCode;
+
             $this->syncLocalResource(
                 account: $process->getData('account'),
             );
@@ -248,12 +255,15 @@ class AccountService extends AbstractService
      */
     protected function syncLocalResource(string $account, string $biodata = '', array $attributes = []): bool
     {
-        $resource = UserResource::getByAccountCode($account)->first();
+        $resource = UserResource::getByAccountCode($this->accountOrigin ?? $account)->first();
         assert($resource instanceof UserResourceInterface || $resource === null);
 
         if ($resource?->getId()) {
             PROCESS_UPDATE:
-            $resource->setAccountCode($account);
+
+            if ($this->accountOrigin) {
+                $resource->setAccountCode($account);
+            }
 
             if (mb_strlen($biodata)) {
                 $resource->setBiodataCode($biodata);

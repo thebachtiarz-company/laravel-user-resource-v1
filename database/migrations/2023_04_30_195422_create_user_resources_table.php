@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string(UserResourceInterface::ATTRIBUTE_ACCOUNTCODE)->unique();
             $table->string(UserResourceInterface::ATTRIBUTE_BIODATACODE)->unique();
-            $table->tinyText(UserResourceInterface::ATTRIBUTE_DATACACHE)->nullable(false);
+            $table->text(UserResourceInterface::ATTRIBUTE_DATACACHE)->nullable(false);
             $table->timestamps();
         });
     }
