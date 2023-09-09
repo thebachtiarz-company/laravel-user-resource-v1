@@ -46,7 +46,7 @@ class AppService
         assert($dataService instanceof DataService);
 
         foreach ($dataService->registerConfig() as $key => $register) {
-            config(collect($register)->unique()->toArray());
+            config($register);
         }
     }
 
